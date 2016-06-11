@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <!--script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script-->
+    <script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+
+ <style>
+    circle.dimple-series-0 {
+        fill : red;        
+    }
+    h2 {
+        text-align : center;
+    }
+ </style>
+    <script type="text/javascript">
+      function draw(data) {
+      
+      /*
+        D3.js setup code
+      */
+
+          "use strict";
+          
+            
+            /*var margin = 10,
+              width = 1000 - margin,
+              height = 700 - margin;
+            */
+
+            var margin = 10,
+              width = 960 - margin,
+              height = 500 - margin;
+            
+           
+              debugger;
+
+          //var title = d3.select("body").append("h2").text("Global Energy Production and Consumption trends");
+
+          var svg = d3.select("body")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height + margin)
+            .append('g')
+                .attr('class','chart');
+
+        svg.append("text")
+            .attr("x", (width + margin)/ 2)
+            .attr("y", 14)
+            .attr("text-anchor", "middle")
+            .style("font-size", "20px")
+            .style("font-weight", "bold")
+            .text("Global Energy Production and Consumption trends");  
+
+       
+      /*
+        Dimple.js Chart construction code
+      */
+
+            var myChart = new dimple.chart(svg, data);
+            var x = myChart.addCategoryAxis("x",["Quarter","Category"]);
+                
+            var y = myChart.addMeasureAxis("y", "Million_barrels");
+
+            //x.title = "Quarter"";            
+            //y.title  = "World Liquid Fuel (Million barrels per day)";  
+              y.overrideMin = 80;  
+              y.overrideMax = 100;  
+             
+            //y.stacked = false; 
+             //y.addOrderRule("Million_barrels", false);
+            
+             x.addOrderRule(["Q1 2011","Q2 2011","Q3 2011","Q4 2011",
+                            "Q1 2012","Q2 2012","Q3 2012","Q4 2012",
+                            "Q1 2013","Q2 2013","Q3 2013","Q4 2013",
+                            "Q1 2014","Q2 2014","Q3 2014","Q4 2014",
+                            "Q1 2015","Q2 2015","Q3 2015","Q4 2015",
+                            "Q1 2016","Q2 2016","Q3 2016","Q4 2016",
+                            "Q1 2017","Q2 2017","Q3 2017","Q4 2017"]
+                            );
+            
+            myChart.addSeries("Category", dimple.plot.line);
+
+            myChart.addLegend(800, 300, 60, 40, "right");
+            // x, y, width, height
+
+            myChart.draw();
+
+            x.shapes
+                .selectAll("text")
+                .attr("transform",function (d) {
+                            return d3.select(this).attr("transform") + "rotate(-45)"}
+                        );
+            x.titleShape.text("Quarter");
+            y.titleShape.text(" World Liquid Fuel (Million barrels per day)");  
+
+        };
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the TSV file
+    and pass the contents of it to the draw function
+    */
+  d3.csv("World_prod_consumption.csv", draw);
+  </script>
+</body>
+</html>
