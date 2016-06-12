@@ -6,3 +6,6 @@
   The chart is not clearly conveying production vs consumption trend. Howwver due to the layout and aesthetics, the legeds have higher visual cue than the data points. 
 
   As part of makeover i took the data from https://www.eia.gov/forecasts/steo/report/global_oil.cfm, which is same as the data used in the chart but for much longer period. I beleive trends has to be looked at for longer period to take seasonality and other world impacting events to factor in. My design process is to use dimple.js as framework and display longer trends with clear legends and trend lines.
+
+  Make over chart can be found at : http://htmlpreview.github.io/?https://github.com/arulmanir/visual_mini_project/blob/master/index.html
+  
